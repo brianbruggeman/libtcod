@@ -1032,6 +1032,7 @@ void TCOD_sys_set_renderer(TCOD_renderer_t renderer) {
 static void TCOD_sys_init_screen_offset() {
 	TCOD_ctx.fullscreen_offsetx=(TCOD_ctx.actual_fullscreen_width-TCOD_ctx.root->w*TCOD_ctx.font_width)/2;
 	TCOD_ctx.fullscreen_offsety=(TCOD_ctx.actual_fullscreen_height-TCOD_ctx.root->h*TCOD_ctx.font_height)/2;
+	printf("fullscreen offset : %d %d\n",TCOD_ctx.fullscreen_offsetx,TCOD_ctx.fullscreen_offsety);
 }
 
 bool TCOD_sys_init(int w,int h, char_t *buf, char_t *oldbuf, bool fullscreen) {
@@ -1575,8 +1576,8 @@ void TCOD_sys_unproject_screen_coords(int sx, int sy, int *ssx, int *ssy) {
 		*ssx = (scale_data.src_x0 + ((sx - scale_data.dst_offset_x) * scale_data.src_copy_width) / scale_data.dst_display_width);
 		*ssy = (scale_data.src_y0 + ((sy - scale_data.dst_offset_y) * scale_data.src_copy_width) / scale_data.dst_display_width);
 	} else {
-		*ssx=sx;
-		*ssy=sy;
+		*ssx = sx - TCOD_ctx.fullscreen_offsetx;
+		*ssy = sy - TCOD_ctx.fullscreen_offsety;
 	}
 }
 
@@ -1825,12 +1826,10 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 				}
 				/* update mouse position */
 				if ( (TCOD_EVENT_MOUSE_MOVE & eventMask) == 0) {
-					int charWidth, charHeight;
 					mouse->x=mev->x;
 					mouse->y=mev->y;
-					TCOD_sys_get_char_size(&charWidth,&charHeight);
-					mouse->cx = (mouse->x - TCOD_ctx.fullscreen_offsetx) / charWidth;
-					mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / charHeight;
+					mouse->cx = (mouse->x - TCOD_ctx.fullscreen_offsetx) / TCOD_ctx.font_width;
+					mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / TCOD_ctx.font_height;
 				}
 				return retMask;
 			}
@@ -1846,12 +1845,10 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 				}
 				/* update mouse position */
 				if ( (TCOD_EVENT_MOUSE_MOVE & eventMask) == 0) {
-					int charWidth, charHeight;
 					mouse->x=mev->x;
 					mouse->y=mev->y;
-					TCOD_sys_get_char_size(&charWidth,&charHeight);
-					mouse->cx = (mouse->x - TCOD_ctx.fullscreen_offsetx) / charWidth;
-					mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / charHeight;
+					mouse->cx = (mouse->x - TCOD_ctx.fullscreen_offsetx) / TCOD_ctx.font_width;
+					mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / TCOD_ctx.font_height;
 				}				
 				return retMask;
 			}

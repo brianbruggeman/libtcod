@@ -661,7 +661,9 @@ void TCOD_sys_startup() {
 	/* not needed and might crash on windows */
 	atexit(SDL_Quit);
 #endif
-#ifndef TCOD_SDL2
+#ifdef TCOD_SDL2
+    SDL_EventState(SDL_TEXTINPUT, SDL_ENABLE);
+#else
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
 #endif
 	memset(&TCOD_ctx.key_state,0,sizeof(TCOD_key_t));
@@ -1125,7 +1127,18 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 			}
 		}
 		break;
-#ifndef TCOD_SDL2
+#ifdef TCOD_SDL2
+		case SDL_TEXTINPUT: {
+			SDL_TextInputEvent *iev=&ev->text;
+			TCOD_key_t ret;
+			ret.vk = TCODK_CHAR;
+			ret.pressed = 0;
+			ret.c = iev->text[0];
+			*key = ret;
+			return retMask | TCOD_EVENT_KEY_TEXT; 
+		}
+		break;
+#else
 		case SDL_ACTIVEEVENT : 
 			switch(ev->active.state) {
 				case SDL_APPMOUSEFOCUS : TCOD_ctx.app_has_mouse_focus=ev->active.gain; break;

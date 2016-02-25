@@ -20,7 +20,7 @@ For Fedora 22:
 
 Building SDL2
 -------------
-Download the correct SDL2 revision, build and install it:
+Download the supported SDL2 revision, build and install it:
 
     $ curl -o sdl.tar.gz http://hg.libsdl.org/SDL/archive/704a0bfecf75.tar.gz
     $ tar -xf sdl.tar.gz
@@ -41,7 +41,7 @@ Download the latest libtcod version, build it and install it:
     $ hg clone https://bitbucket.org/libtcod/libtcod
     $ cd libtcod/
     $ hg pull && hg update default
-    $ make -f build/makefile-linux-sdl2
+    $ make -f build/makefile-linux
 
 This will place the libraries in the top level of the libtcod checkout directory.
 

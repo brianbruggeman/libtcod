@@ -233,7 +233,7 @@ public :
 	@PageName system_filesystem
 	@PageFather system
 	@PageTitle Filesystem utilities
-	@PageDesc Those are a few function that cannot be easily implemented in a portable way in C/C++. They have no python wrapper since python provides its own builtin functions. All those functions return false if an error occurred.
+	@PageDesc Those are a few function that cannot be easily implemented in a portable way in C/C++. They have no Python wrapper since Python provides its own builtin functions. All those functions return false if an error occurred.
 	@FuncTitle Create a directory
 	@Cpp static bool TCODSystem::createDirectory(const char *path)
 	@C bool TCOD_sys_create_directory(const char *path)

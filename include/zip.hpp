@@ -33,7 +33,7 @@
  @PageCategory Base toolkits
  @PageTitle Compression toolkit
  @PageDesc This toolkit provides functions to save or read compressed data from a file. While the module is named Zip, it has nothing to do with the .zip format as it uses zlib compression (.gz format).
-	Note that this modules has no python wrapper. Use python built-in zip module instead.
+	Note that this modules has no Python wrapper. Use Python built-in zip module instead.
 	
 	You can use the compression buffer in two modes:
 	* put data in the buffer, then save it to a file,
@@ -54,7 +54,7 @@ public :
 	
 	/**
 	@PageName zip_init
-	@FuncDesc Once you don't need the buffer anymore, you can release resources. Note that the adresses returned by the getString function are no longer valid once the buffer has been destroyed.
+	@FuncDesc Once you don't need the buffer anymore, you can release resources. Note that the addresses returned by the getString function are no longer valid once the buffer has been destroyed.
 	@Cpp TCODZip::~TCODZip()
 	@C void TCOD_zip_delete(TCOD_zip_t zip)
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
@@ -317,7 +317,7 @@ public :
 
 	/**
 	@PageName zip_load
-	@FuncTitle Skiping some bytes in the buffer
+	@FuncTitle Skipping some bytes in the buffer
 	@Cpp void TCODZip::skipBytes(uint32 nbBytes)
 	@C void TCOD_zip_skip_bytes(TCOD_zip_t zip, uint32 nbBytes)
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
